@@ -101,26 +101,42 @@ while (true) {
             "Digite as coordenadas. Exemplo A1, 2B, C3: "
           ).toLowerCase();
         }
+        let entrada = coordenadas;
         coordenadas = coordenadas.split("", coordenadas.length);
 
-        for (let i = 0; i < coordenadas.length; i++) {
-          console.log(coordenadas[i]);
-          if (
-            coordenadas[i] == "a" ||
-            coordenadas[i] == "b" ||
-            coordenadas[i] == "c" ||
-            coordenadas[i] == "1" ||
-            coordenadas[i] == "2" ||
-            coordenadas[i] == "3"
-          ) {
+        // Valida as coordenadas
+        if (coordenadas.length != 2) {
+          invalido = true;
+        } else {
+          const cols = ["a", "b", "c"];
+          let encontrou = false;
+
+          cols.forEach((e) => {
+            for (let i = 1; i <= 3; i++) {
+              if (e + i == entrada) {
+                encontrou = true;
+              }
+            }
+          });
+
+          for (let i = 1; i <= 3; i++) {
+            cols.forEach((e) => {
+              if (i + e == entrada) {
+                encontrou = true;
+              }
+            });
+          }
+
+          if (encontrou) {
             invalido = false;
           } else {
             invalido = true;
           }
         }
+        if (invalido) {
+          console.log("Coordenada inválida!");
+        }
       } while (invalido);
-
-      console.log(coordenadas);
 
       if (
         coordenadas[0] == "a" ||
@@ -183,6 +199,7 @@ while (true) {
   // Limpa as listas para nova jogada
   matriz = [];
   linhas = [];
+  armazenaCoordenadas = [""];
 }
 
 console.clear();
@@ -190,3 +207,16 @@ console.log("############### PLACAR ###############");
 console.log(
   `########### XIS ${vencedores[0]} x ${vencedores[1]} BOLA ###########\n`
 );
+
+let vitorioso = "";
+if (vencedores[0] == vencedores[1]) {
+  console.log(`Empate! Não houve um Gande Vencedor!`);
+} else {
+  if (vencedores[0] > vencedores[1]) {
+    vitorioso = "XIS";
+  } else {
+    vitorioso = "BOLA";
+  }
+  console.log(`O ${vitorioso} é o Grandre Vencedor!`);
+}
+console.log();
